@@ -2,7 +2,7 @@ namespace Get_StudentCase.Entities
 {
     public class Event
     {
-        int EventId { get; set; }
+        public int EventId { get; set; }
 
         public DateTime OccurredUtc { get; set; }
         public DateTime RecordedUtc { get; set; }
