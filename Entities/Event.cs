@@ -2,12 +2,17 @@ namespace Get_StudentCase.Entities
 {
     public class Event
     {
-        public DateOnly Date { get; set; }
+        int EventId { get; set; }
 
-        public int TemperatureC { get; set; }
+        public DateTime OccurredUtc { get; set; }
+        public DateTime RecordedUtc { get; set; }
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public int StudentId { get; set; }
 
-        public string? Summary { get; set; }
+        public string Course { get; set; }
+        public int Year { get; set; }
+
+        public int Semester { get; set; }
+        public string Type { get; set; }
     }
 }
