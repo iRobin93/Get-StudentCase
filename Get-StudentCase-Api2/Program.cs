@@ -31,3 +31,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+/* nuget console commands
+ * sqllocaldb create local  -  i CMD vindu først.
+ * Lage database:
+ * Add-Migration MySQLInitialMigration
+ * Update-Database
+ * 
+ * Rense:
+ * Drop-Database 
+ * Remove-Migration 
+ */
