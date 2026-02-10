@@ -37,7 +37,7 @@ app.Run();
 /* nuget console commands
  * sqllocaldb create local  -  i CMD vindu først.
  * Lage database:
- * Add-Migration MySQLInitialMigration
+ * Add-Migration MSSQLInitialMigration
  * Update-Database
  * 
  * Rense:
