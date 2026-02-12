@@ -17,7 +17,7 @@ using var http = new HttpClient
 
 http.DefaultRequestHeaders.Accept.Add(
     new MediaTypeWithQualityHeaderValue("application/json"));
-
+var studentError = true;
 foreach (var line in File.ReadLines("events.jsonl"))
 {
     if (string.IsNullOrWhiteSpace(line))
@@ -27,7 +27,7 @@ foreach (var line in File.ReadLines("events.jsonl"))
 
     var type = evt.GetProperty("type").GetString();
     var eventId = evt.GetProperty("eventId").GetString();
-   
+    
     string studentId = "";
 
     // TODO: route to handlers, insert into DB, etc
@@ -43,7 +43,8 @@ foreach (var line in File.ReadLines("events.jsonl"))
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"❌ Failed: {response.StatusCode} - {error}");
+            Console.WriteLine($"Feil ved student registrering: {response.StatusCode} - {error}");
+            studentError = true;
             continue;
         }
 
@@ -51,11 +52,13 @@ foreach (var line in File.ReadLines("events.jsonl"))
 
       
         studentId = result!.StudentId;
-
+        studentError = false;
+        Console.WriteLine("Student registrert: " + studentId);
     }
     else 
     {
-
+        if (studentError)
+            continue;
         var node = JsonNode.Parse(line)!.AsObject();
 
         node["studentId"] = studentId; // your value
@@ -72,10 +75,11 @@ foreach (var line in File.ReadLines("events.jsonl"))
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"❌ Failed: {response.StatusCode} - {error}");
+            Console.WriteLine($"❌ Feil ved kurs registrering: {response.StatusCode} - {error}");
+            continue;
         }
-
-
+ 
+        Console.WriteLine("Kurs registrert: " + node["course"]);
     }
 }
 
