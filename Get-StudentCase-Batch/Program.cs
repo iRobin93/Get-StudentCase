@@ -18,6 +18,7 @@ using var http = new HttpClient
 http.DefaultRequestHeaders.Accept.Add(
     new MediaTypeWithQualityHeaderValue("application/json"));
 var studentError = true;
+string studentId = "";
 foreach (var line in File.ReadLines("events.jsonl"))
 {
     if (string.IsNullOrWhiteSpace(line))
@@ -28,7 +29,7 @@ foreach (var line in File.ReadLines("events.jsonl"))
     var type = evt.GetProperty("type").GetString();
     var eventId = evt.GetProperty("eventId").GetString();
     
-    string studentId = "";
+    
 
     // TODO: route to handlers, insert into DB, etc
     if (type == "student_registrert")
