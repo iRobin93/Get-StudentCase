@@ -17,9 +17,10 @@ namespace Get_StudentCase.Controllers
         }
 
         [HttpGet(Name = "GetCourseStatus")]
-        public void Get()
+        public string Get()
         {
-
+            return "Hello";
         }
+        
     }
 }

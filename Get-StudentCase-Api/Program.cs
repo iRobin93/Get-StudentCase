@@ -1,4 +1,6 @@
 using Get_StudentCase.Data;
+using Get_StudentCase.Repositories;
+using Get_StudentCase.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -35,7 +39,7 @@ app.Run();
 
 
 /* nuget console commands
- * sqllocaldb create local  -  i CMD vindu først.
+ * sqllocaldb create local  -  i CMD vindu fï¿½rst.
  * Lage database:
  * Add-Migration MSSQLInitialMigration
  * Update-Database

@@ -1,4 +1,5 @@
 using Get_StudentCase.Entities;
+using Get_StudentCase.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Get_StudentCase.Controllers
@@ -7,19 +8,22 @@ namespace Get_StudentCase.Controllers
     [Route("[controller]")]
     public class EventController : ControllerBase
     {
-       
+        private readonly IEventService _eventService;
 
-        private readonly ILogger<EventController> _logger;
-
-        public EventController(ILogger<EventController> logger)
+        public EventController(IEventService eventService)
         {
-            _logger = logger;
+            _eventService = eventService;
         }
 
-        [HttpGet(Name = "GetEvent")]
-        public void Get()
+        [HttpPost(Name = "PostEvent")]
+        public async Task<IActionResult> Post([FromBody] Event @event)
         {
+            var studentId = await _eventService.CreateEventAsync(@event);
 
+            var response = new Response(200, studentId);
+            return Ok(response);
         }
     }
+
+    public record Response(int responses, Guid studentId);
 }
